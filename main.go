@@ -178,7 +178,7 @@ func handleEvent(ctx context.Context, ev interface{}, logger *log.Logger) {
 	switch ev := ev.(type) {
 	case *cdpruntime.EventConsoleAPICalled:
 		for _, arg := range ev.Args {
-			line := string(arg.Value)
+			line := string([]byte(arg.Value))
 			if line == "" { // If Value is not found, look for Description.
 				line = arg.Description
 			}
