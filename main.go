@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/tinywasm/devbrowser"
 	"github.com/tinywasm/devbrowser/cdproto/inspector"
 	"github.com/tinywasm/devbrowser/cdproto/profiler"
 	cdpruntime "github.com/tinywasm/devbrowser/cdproto/runtime"
 	"github.com/tinywasm/devbrowser/cdproto/target"
-	"github.com/tinywasm/devbrowser"
 	"github.com/tinywasm/devbrowser/chromedp"
 )
 
