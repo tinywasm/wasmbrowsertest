@@ -17,7 +17,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/agnivade/wasmbrowsertest/filesys"
+	"github.com/tinywasm/wasmbrowsertest/filesys"
 )
 
 //go:embed index.html

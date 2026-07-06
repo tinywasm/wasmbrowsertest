@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/chromedp/cdproto/profiler"
+	"github.com/tinywasm/devbrowser/cdproto/profiler"
 	"github.com/google/pprof/profile"
 )
 

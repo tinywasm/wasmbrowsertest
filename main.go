@@ -15,11 +15,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chromedp/cdproto/inspector"
-	"github.com/chromedp/cdproto/profiler"
-	cdpruntime "github.com/chromedp/cdproto/runtime"
-	"github.com/chromedp/cdproto/target"
-	"github.com/chromedp/chromedp"
+	"github.com/tinywasm/devbrowser/cdproto/inspector"
+	"github.com/tinywasm/devbrowser/cdproto/profiler"
+	cdpruntime "github.com/tinywasm/devbrowser/cdproto/runtime"
+	"github.com/tinywasm/devbrowser/cdproto/target"
+	"github.com/tinywasm/devbrowser"
+	"github.com/tinywasm/devbrowser/chromedp"
 )
 
 func main() {
@@ -188,6 +189,8 @@ func run(ctx context.Context, args []string, errOutput io.Writer, flagSet *flag.
 	defer shutdownHTTPServer()
 
 	opts := chromedp.DefaultExecAllocatorOptions[:]
+	opts = append(opts, chromedp.ExecPath(devbrowser.ResolveChromeExecPath()))
+
 	if os.Getenv("WASM_HEADLESS") == "off" {
 		opts = append(opts,
 			chromedp.Flag("headless", false),

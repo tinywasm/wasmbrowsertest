@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/chromedp/cdproto/profiler"
+	"github.com/tinywasm/devbrowser/cdproto/profiler"
 )
 
 func TestWriteProfile(t *testing.T) {
