@@ -162,3 +162,7 @@ cleanenv -remove-prefix GITHUB_ -- go test -cover ./...
 
 The `cleanenv` command above removes all environment variables prefixed with `GITHUB_` before running the command after the `--`.
 The `-remove-prefix` flag can be repeated multiple times to remove even more environment variables.
+
+## Credits
+
+This project is a fork of [agnivade/wasmbrowsertest](https://github.com/agnivade/wasmbrowsertest), originally created by [Agniva De Sarker](https://github.com/agnivade). All credit for the original design and implementation goes to the upstream project; this fork adapts it for the tinywasm ecosystem (see [devbrowser](https://github.com/tinywasm/devbrowser) for the underlying browser automation).
