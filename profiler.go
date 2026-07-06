@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/chromedp/cdproto/profiler"
 	"github.com/google/pprof/profile"
+	"github.com/tinywasm/devbrowser/cdproto/profiler"
 )
 
 // locMeta is a wrapper around profile.Location with an extra

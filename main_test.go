@@ -4,11 +4,35 @@ import (
 	"bytes"
 	"context"
 	"flag"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
 )
+
+// captureStdout redirects the real os.Stdout to a pipe for the duration of
+// the test and returns a function that restores it and returns everything
+// written. Needed because handleEvent's console relay in main.go writes
+// directly via fmt.Printf to os.Stdout, not to any io.Writer callers pass in.
+func captureStdout(t *testing.T) func() []byte {
+	t.Helper()
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatalf("failed to create pipe: %v", err)
+	}
+	orig := os.Stdout
+	os.Stdout = w
+	return func() []byte {
+		os.Stdout = orig
+		w.Close()
+		out, err := io.ReadAll(r)
+		if err != nil {
+			t.Fatalf("failed to read captured stdout: %v", err)
+		}
+		return out
+	}
+}
 
 func TestRun(t *testing.T) {
 	t.Skip("Too flaky. See: https://github.com/agnivade/wasmbrowsertest/issues/59")
@@ -99,6 +123,61 @@ func main() {
 			assertEqualError(t, tc.expectErr, err)
 		})
 	}
+}
+
+// TestRunConsoleRelay is a regression test for the devbrowser migration
+// (see docs/CHECK_PLAN.md): it exercises the real chromedp/console-relay
+// code path in main.go's run() — allocator setup via
+// devbrowser.ResolveChromeExecPath, chromedp.ListenTarget/handleEvent, and
+// exit-code propagation — end-to-end against a real browser. Unlike
+// TestRun above, this isn't skipped: it's the permanent, in-library
+// coverage for the exact bug this migration fixed (Chrome resolution) and
+// the exact mechanism gotest depends on (console output relay).
+func TestRunConsoleRelay(t *testing.T) {
+	t.Run("passing test relays console output and exits 0", func(t *testing.T) {
+		dir := t.TempDir()
+		writeFile(t, dir, "go.mod", "module fixture\n\ngo 1.20\n")
+		writeFile(t, dir, "fixture.go", `
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("hello from wasm fixture")
+}
+`)
+		wasmFile := buildTestWasm(t, dir)
+
+		// The console relay (handleEvent in main.go) writes directly to the
+		// real os.Stdout via fmt.Printf, not to the io.Writer passed into
+		// run(). Capture real stdout to observe it.
+		stdout := captureStdout(t)
+		_, err := testRun(t, wasmFile)
+		out := stdout()
+		if err != nil {
+			t.Fatalf("unexpected error: %v\nstdout:\n%s", err, out)
+		}
+		if !bytes.Contains(out, []byte("hello from wasm fixture")) {
+			t.Errorf("expected console output to be relayed, got stdout:\n%s", out)
+		}
+	})
+
+	t.Run("panicking test propagates a non-zero exit", func(t *testing.T) {
+		dir := t.TempDir()
+		writeFile(t, dir, "go.mod", "module fixture\n\ngo 1.20\n")
+		writeFile(t, dir, "fixture.go", `
+package main
+
+func main() {
+	panic("deliberate failure for regression test")
+}
+`)
+		wasmFile := buildTestWasm(t, dir)
+		_, err := testRun(t, wasmFile)
+		if err == nil {
+			t.Fatal("expected a non-nil error from a panicking wasm binary, got nil")
+		}
+	})
 }
 
 func testRun(t *testing.T, wasmFile string, flags ...string) ([]byte, error) {

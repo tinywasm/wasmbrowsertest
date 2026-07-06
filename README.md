@@ -1,4 +1,4 @@
-# wasmbrowsertest [![Build Status](https://github.com/agnivade/wasmbrowsertest/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/agnivade/wasmbrowsertest/actions/workflows/ci.yml)
+# wasmbrowsertest [![Build Status](https://github.com/tinywasm/wasmbrowsertest/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/tinywasm/wasmbrowsertest/actions/workflows/ci.yml)
 
 Run Go wasm tests easily in your browser.
 
@@ -11,7 +11,7 @@ This tool automates all of that. So you just have to type `GOOS=js GOARCH=wasm g
 
 ## Quickstart
 
-- `go install github.com/agnivade/wasmbrowsertest@latest`. This will place the binary in $GOPATH/bin, or $GOBIN, if that has a different value.
+- `go install github.com/tinywasm/wasmbrowsertest@latest`. This will place the binary in $GOPATH/bin, or $GOBIN, if that has a different value.
 - Rename the binary to `go_js_wasm_exec`.
 - Add $GOBIN to $PATH if it is not already done.
 - Run tests as usual: `GOOS=js GOARCH=wasm go test`.
@@ -66,7 +66,7 @@ addons:
   chrome: stable
 
 install:
-- go install github.com/agnivade/wasmbrowsertest@latest
+- go install github.com/tinywasm/wasmbrowsertest@latest
 - mv $GOPATH/bin/wasmbrowsertest $GOPATH/bin/go_js_wasm_exec
 - export PATH=$GOPATH/bin:$PATH
 ```
@@ -99,7 +99,7 @@ jobs:
     - name: Install chrome
       uses: browser-actions/setup-chrome@latest
     - name: Install dep
-      run: go install github.com/agnivade/wasmbrowsertest@latest
+      run: go install github.com/tinywasm/wasmbrowsertest@latest
     - name: Setup wasmexec
       run: mv $(go env GOPATH)/bin/wasmbrowsertest $(go env GOPATH)/bin/go_js_wasm_exec
     - name: Checkout code
@@ -154,7 +154,7 @@ go test -cover ./...
 ```
 The new commands should be the following:
 ```bash
-go install github.com/agnivade/wasmbrowsertest/cmd/cleanenv@latest
+go install github.com/tinywasm/wasmbrowsertest/cmd/cleanenv@latest
 
 export GOOS=js GOARCH=wasm
 cleanenv -remove-prefix GITHUB_ -- go test -cover ./...
@@ -162,3 +162,7 @@ cleanenv -remove-prefix GITHUB_ -- go test -cover ./...
 
 The `cleanenv` command above removes all environment variables prefixed with `GITHUB_` before running the command after the `--`.
 The `-remove-prefix` flag can be repeated multiple times to remove even more environment variables.
+
+## Credits
+
+This project is a fork of [agnivade/wasmbrowsertest](https://github.com/agnivade/wasmbrowsertest), originally created by [Agniva De Sarker](https://github.com/agnivade). All credit for the original design and implementation goes to the upstream project; this fork adapts it for the tinywasm ecosystem (see [devbrowser](https://github.com/tinywasm/devbrowser) for the underlying browser automation).
