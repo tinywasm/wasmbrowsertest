@@ -1,4 +1,4 @@
-# PLAN: migrate wasmbrowsertest's chromedp usage to devbrowser's vendored copy
+# PLAN: migrate wasmbrowsertest's chromedp usage to devbrowser's vendored copy.
 
 ## Background (one paragraph — the bug itself is already fixed elsewhere)
 
