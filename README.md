@@ -1,4 +1,5 @@
 # wasmbrowsertest [![Build Status](https://github.com/tinywasm/wasmbrowsertest/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/tinywasm/wasmbrowsertest/actions/workflows/ci.yml)
+<img src="docs/img/badges.svg">
 
 Run Go wasm tests easily in your browser.
 
