@@ -11,7 +11,7 @@ require (
 require (
 	github.com/tinywasm/context v0.0.18 // indirect
 	github.com/tinywasm/fetch v0.1.24 // indirect
-	github.com/tinywasm/fmt v0.25.0 // indirect
+	github.com/tinywasm/fmt v0.25.1 // indirect
 	github.com/tinywasm/form v0.2.12 // indirect
 	github.com/tinywasm/json v0.5.8 // indirect
 	github.com/tinywasm/mcp v0.1.16 // indirect
