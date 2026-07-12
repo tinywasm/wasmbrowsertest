@@ -13,6 +13,42 @@ import (
 // tinygoWasmExecLocation is the shim's path relative to TINYGOROOT.
 const tinygoWasmExecLocation = "targets/wasm_exec.js"
 
+// tinygoTarget is the TinyGo build target for the browser.
+const tinygoTarget = "wasm"
+
+// tinygoBuildTest recompiles the package under test with TinyGo and returns the
+// resulting wasm binary.
+//
+// `go test -exec` hands us a binary the *Go* toolchain already produced, which
+// tells us nothing about TinyGo compatibility: Go's js/wasm backend supports the
+// full stdlib, so a package that Go compiles happily can still be rejected by
+// TinyGo. To actually exercise TinyGo we discard that binary and rebuild from
+// source. `tinygo test` has no -exec hook of its own, hence -c.
+//
+// `go test -exec` runs us with the package's source directory as the working
+// directory, so "." is the package under test.
+func tinygoBuildTest() (wasmFile string, cleanup func(), err error) {
+	bin, err := tinygoBin()
+	if err != nil {
+		return "", nil, err
+	}
+
+	tmpDir, err := os.MkdirTemp("", "wasmbrowsertest-tinygo-*")
+	if err != nil {
+		return "", nil, err
+	}
+	cleanup = func() { os.RemoveAll(tmpDir) }
+
+	out := filepath.Join(tmpDir, "pkg.wasm")
+	cmd := exec.Command(bin, "test", "-target", tinygoTarget, "-c", "-o", out, ".")
+
+	if combined, err := cmd.CombinedOutput(); err != nil {
+		cleanup()
+		return "", nil, fmt.Errorf("tinygo build failed:\n%s", combined)
+	}
+	return out, cleanup, nil
+}
+
 // tinygoWasmExecJS returns TinyGo's JS glue.
 //
 // TinyGo's wasm_exec.js is NOT interchangeable with the Go toolchain's: the two
@@ -33,12 +69,21 @@ func tinygoWasmExecJS() ([]byte, error) {
 	return buf, nil
 }
 
-// tinygoRoot resolves TINYGOROOT by asking the installed toolchain.
-func tinygoRoot() (string, error) {
+// tinygoBin locates the TinyGo toolchain, in PATH or locally installed.
+func tinygoBin() (string, error) {
 	bin, err := tinygo.GetPath()
 	if err != nil {
 		return "", fmt.Errorf("tinygo is not installed: %w\n"+
 			"install it with: go run github.com/tinywasm/tinygo/cmd/tinygoinstall@latest", err)
+	}
+	return bin, nil
+}
+
+// tinygoRoot resolves TINYGOROOT by asking the installed toolchain.
+func tinygoRoot() (string, error) {
+	bin, err := tinygoBin()
+	if err != nil {
+		return "", err
 	}
 
 	out, err := exec.Command(bin, "env", "TINYGOROOT").Output()

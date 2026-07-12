@@ -134,6 +134,18 @@ func run(ctx context.Context, args []string, errOutput io.Writer, flagSet *flag.
 
 	wasmFile = cleanArgs[wasmFileIndex]
 
+	if *tinygoMode {
+		// The binary go test just handed us was built by the Go toolchain, so it
+		// cannot prove TinyGo compatibility. Rebuild the package with TinyGo and
+		// run that instead.
+		tinygoFile, cleanup, err := tinygoBuildTest()
+		if err != nil {
+			return err
+		}
+		defer cleanup()
+		wasmFile = tinygoFile
+	}
+
 	ext := path.Ext(wasmFile)
 	if ext == ".test" {
 		newWasmFile := strings.Replace(wasmFile, ext, ".wasm", -1)
