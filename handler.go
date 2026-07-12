@@ -39,7 +39,10 @@ var wasmLocations = []string{
 	"lib/wasm/wasm_exec.js",
 }
 
-func NewWASMServer(wasmFile string, args []string, coverageFile string, l *log.Logger) (http.Handler, error) {
+// NewWASMServer serves a wasm test binary to the browser. When tinygoMode is
+// set, the binary was produced by TinyGo, whose JS glue is incompatible with
+// the Go toolchain's: the shim is loaded from TINYGOROOT instead of GOROOT.
+func NewWASMServer(wasmFile string, args []string, coverageFile string, tinygoMode bool, l *log.Logger) (http.Handler, error) {
 	var err error
 	srv := &wasmServer{
 		wasmFile: wasmFile,
@@ -59,6 +62,20 @@ func NewWASMServer(wasmFile string, args []string, coverageFile string, l *log.L
 	for _, env := range os.Environ() {
 		vars := strings.SplitN(env, "=", 2)
 		srv.envMap[vars[0]] = vars[1]
+	}
+
+	if tinygoMode {
+		buf, err := tinygoWasmExecJS()
+		if err != nil {
+			return nil, err
+		}
+		srv.wasmExecJS = buf
+
+		srv.indexTmpl, err = template.New("index").Parse(indexHTML)
+		if err != nil {
+			return nil, err
+		}
+		return srv, nil
 	}
 
 	var buf []byte

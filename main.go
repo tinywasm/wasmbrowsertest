@@ -54,6 +54,7 @@ func run(ctx context.Context, args []string, errOutput io.Writer, flagSet *flag.
 	cpuProfile := flagSet.String("test.cpuprofile", "", "")
 	coverageProfile := flagSet.String("test.coverprofile", "", "")
 	quiet := flagSet.Bool("quiet", false, "disable printing of passing test logs")
+	tinygoMode := flagSet.Bool("tinygo", false, "the wasm binary was built by TinyGo: serve TinyGo's wasm_exec.js instead of the Go toolchain's")
 
 	// Separate flags and other args
 	var wasmFile string
@@ -91,6 +92,7 @@ func run(ctx context.Context, args []string, errOutput io.Writer, flagSet *flag.
 	cleanArgs = append(cleanArgs, args[0])
 
 	foundQuiet := false
+	foundTinygo := false
 	for i, arg := range args {
 		if i == 0 {
 			continue
@@ -99,11 +101,19 @@ func run(ctx context.Context, args []string, errOutput io.Writer, flagSet *flag.
 			foundQuiet = true
 			continue
 		}
+		// Like -quiet, this flag is ours and arrives before the binary
+		// (`go test -exec 'wasmbrowsertest -tinygo'`), so the wasm binary must
+		// never see it.
+		if arg == "-tinygo" || arg == "--tinygo" {
+			foundTinygo = true
+			continue
+		}
 		// Also strip cpuprofile/coverprofile if handled manually?
 		// No, let gentleParse and flagSet handle standard go test flags.
 		cleanArgs = append(cleanArgs, arg)
 	}
 	*quiet = foundQuiet
+	*tinygoMode = foundTinygo
 
 	args = cleanArgs
 
@@ -178,7 +188,7 @@ func run(ctx context.Context, args []string, errOutput io.Writer, flagSet *flag.
 	}
 
 	// Setup web server.
-	handler, err := NewWASMServer(wasmFile, passon, *coverageProfile, logger)
+	handler, err := NewWASMServer(wasmFile, passon, *coverageProfile, *tinygoMode, logger)
 	if err != nil {
 		return err
 	}
