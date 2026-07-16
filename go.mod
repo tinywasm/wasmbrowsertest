@@ -14,11 +14,11 @@ require (
 	github.com/tinywasm/fetch v0.1.24 // indirect
 	github.com/tinywasm/fmt v0.25.3 // indirect
 	github.com/tinywasm/json v0.5.11 // indirect
-	github.com/tinywasm/mcp v0.1.22 // indirect
+	github.com/tinywasm/mcp v0.2.0 // indirect
 	github.com/tinywasm/model v0.0.15 // indirect
-	github.com/tinywasm/router v0.1.12 // indirect
+	github.com/tinywasm/router v0.1.14 // indirect
 	github.com/tinywasm/screenshot v0.0.1 // indirect
 	github.com/tinywasm/time v0.5.0 // indirect
-	github.com/tinywasm/unixid v0.2.23 // indirect
+	github.com/tinywasm/unixid v0.2.24 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 )
