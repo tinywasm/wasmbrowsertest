@@ -10,11 +10,12 @@ require (
 )
 
 require (
+	github.com/tinywasm/base64 v0.0.4 // indirect
 	github.com/tinywasm/context v0.0.18 // indirect
 	github.com/tinywasm/fetch v0.1.24 // indirect
 	github.com/tinywasm/fmt v0.25.5 // indirect
 	github.com/tinywasm/json v0.5.11 // indirect
-	github.com/tinywasm/mcp v0.2.0 // indirect
+	github.com/tinywasm/mcp v0.2.4 // indirect
 	github.com/tinywasm/model v0.1.0 // indirect
 	github.com/tinywasm/router v0.1.14 // indirect
 	github.com/tinywasm/screenshot v0.0.1 // indirect
