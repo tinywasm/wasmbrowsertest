@@ -8,8 +8,8 @@ github.com/tinywasm/base64 v0.0.4 h1:i7EHJSaK5yzeQxhv9gT5Dy/PjnolRvwUq5a8+3D7DFs
 github.com/tinywasm/base64 v0.0.4/go.mod h1:p6s8iOD4F6s6smO80R3bYd8ZGZQxXCBt+5KxFQ4vCHU=
 github.com/tinywasm/context v0.0.18 h1:uKeiAFo6L/PikGSbUu+xcyELGoa4kXomDNwJOlhxrUE=
 github.com/tinywasm/context v0.0.18/go.mod h1:3AHZHMiiVZljEGNuYMaLM2OXdZ3bXjoMCmqx3sEGXsA=
-github.com/tinywasm/devbrowser v0.4.9 h1:GwfMldOtPo3w1TfAInX/lEYToCkUNgA39jKBV9UQrog=
-github.com/tinywasm/devbrowser v0.4.9/go.mod h1:AK4YEp4gKbA3xdd2yBs9cl8qSjE3cmpzKtXt9VdbPCg=
+github.com/tinywasm/devbrowser v0.5.0 h1:huo16WAIunI78uKJOd2CdhnDxk2j3EhmkNC3k9wVYnk=
+github.com/tinywasm/devbrowser v0.5.0/go.mod h1:0kckWrqTTdVOvjF5yX0Od/YGqu0z/p+I5HDlFsf4fV4=
 github.com/tinywasm/fetch v0.1.24 h1:UynB2NPPgYrwcRx6ZujkRUTlfUUkNs60J0O63/1FmAs=
 github.com/tinywasm/fetch v0.1.24/go.mod h1:Hx9bkdjC5fcf++EWjHKUzEn2OZpUbfoXNQV8tbdC5SI=
 github.com/tinywasm/fmt v0.25.5 h1:2nBU5H1lszhkGIusm7m4S+rGM2rPiIJkhvQqwqN17qo=
