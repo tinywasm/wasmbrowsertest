@@ -13,7 +13,7 @@ require (
 	github.com/tinywasm/base64 v0.0.4 // indirect
 	github.com/tinywasm/context v0.0.18 // indirect
 	github.com/tinywasm/fetch v0.1.24 // indirect
-	github.com/tinywasm/fmt v0.25.5 // indirect
+	github.com/tinywasm/fmt v0.25.6 // indirect
 	github.com/tinywasm/json v0.5.17 // indirect
 	github.com/tinywasm/mcp v0.2.4 // indirect
 	github.com/tinywasm/model v0.1.4 // indirect
