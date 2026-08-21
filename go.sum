@@ -4,8 +4,8 @@ github.com/go-interpreter/wagon v0.6.0 h1:BBxDxjiJiHgw9EdkYXAWs8NHhwnazZ5P2EWBW5
 github.com/go-interpreter/wagon v0.6.0/go.mod h1:5+b/MBYkclRZngKF5s6qrgWxSLgE9F5dFdO1hAueZLc=
 github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8 h1:FKHo8hFI3A+7w0aUQuYXQ+6EN5stWmeY/AZqtM8xk9k=
 github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8/go.mod h1:K1liHPHnj73Fdn/EKuT8nrFqBihUSKXoLYU0BuatOYo=
-github.com/tinywasm/base64 v0.0.4 h1:i7EHJSaK5yzeQxhv9gT5Dy/PjnolRvwUq5a8+3D7DFs=
-github.com/tinywasm/base64 v0.0.4/go.mod h1:p6s8iOD4F6s6smO80R3bYd8ZGZQxXCBt+5KxFQ4vCHU=
+github.com/tinywasm/base64 v0.0.5 h1:OuRGCuJrUzqo15jtotxs9PKL0mLuZmRHL6heUFaZZE4=
+github.com/tinywasm/base64 v0.0.5/go.mod h1:p6s8iOD4F6s6smO80R3bYd8ZGZQxXCBt+5KxFQ4vCHU=
 github.com/tinywasm/context v0.0.18 h1:uKeiAFo6L/PikGSbUu+xcyELGoa4kXomDNwJOlhxrUE=
 github.com/tinywasm/context v0.0.18/go.mod h1:3AHZHMiiVZljEGNuYMaLM2OXdZ3bXjoMCmqx3sEGXsA=
 github.com/tinywasm/devbrowser v0.5.5 h1:25GbUZwsIqZI/dc9uo3cpfb3DuPOdYfy5WR5YAOdR/4=
