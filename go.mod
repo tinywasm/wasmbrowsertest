@@ -6,7 +6,7 @@ require (
 	github.com/go-interpreter/wagon v0.6.0
 	github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8
 	github.com/tinywasm/devbrowser v0.5.5
-	github.com/tinywasm/tinygo v0.0.11
+	github.com/tinywasm/tinygo v1.0.0
 )
 
 require (
