@@ -5,7 +5,7 @@ go 1.25.2
 require (
 	github.com/go-interpreter/wagon v0.6.0
 	github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8
-	github.com/tinywasm/devbrowser v0.5.5
+	github.com/tinywasm/devbrowser v0.5.9
 	github.com/tinywasm/tinygo v1.0.0
 )
 
@@ -14,10 +14,10 @@ require (
 	github.com/tinywasm/context v0.0.18 // indirect
 	github.com/tinywasm/fetch v0.1.24 // indirect
 	github.com/tinywasm/fmt v0.25.7 // indirect
-	github.com/tinywasm/json v0.5.21 // indirect
-	github.com/tinywasm/mcp v0.2.4 // indirect
+	github.com/tinywasm/json v0.5.23 // indirect
+	github.com/tinywasm/mcp v0.2.17 // indirect
 	github.com/tinywasm/model v0.1.7 // indirect
-	github.com/tinywasm/router v0.1.22 // indirect
+	github.com/tinywasm/router v0.1.29 // indirect
 	github.com/tinywasm/screenshot v0.0.1 // indirect
 	github.com/tinywasm/time v0.5.4 // indirect
 	github.com/tinywasm/unixid v0.2.24 // indirect
