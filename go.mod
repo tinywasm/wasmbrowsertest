@@ -19,7 +19,7 @@ require (
 	github.com/tinywasm/model v0.1.7 // indirect
 	github.com/tinywasm/router v0.1.22 // indirect
 	github.com/tinywasm/screenshot v0.0.1 // indirect
-	github.com/tinywasm/time v0.5.0 // indirect
+	github.com/tinywasm/time v0.5.4 // indirect
 	github.com/tinywasm/unixid v0.2.24 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 )
